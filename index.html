@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campo-Data: Mapa Agrícola de Argentina</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 { color: #2e7d32; }
+        .container {
+            display: flex;
+            gap: 40px;
+            max-width: 1000px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        /* Simulación del mapa */
+        .map-container {
+            flex: 1;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .provincia-btn {
+            background-color: #81c784;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .provincia-btn:hover { background-color: #4caf50; }
+        /* Panel de Información */
+        .info-container {
+            flex: 1;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            min-height: 300px;
+        }
+        .placeholder { color: #888; font-style: italic; }
+        .data-section { margin-bottom: 15px; }
+        .data-section h3 { color: #388e3c; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+    <h1>Campo-Data</h1>
+    <p>Selecciona una provincia para ver su información agrícola</p>
+
+    <div class="container">
+        <div class="map-container">
+            <h2>Provincias</h2>
+            <button class="provincia-btn" onclick="mostrarInfo('buenosAires')">Buenos Aires</button>
+            <button class="provincia-btn" onclick="mostrarInfo('cordoba')">Córdoba</button>
+            <button class="provincia-btn" onclick="mostrarInfo('santaFe')">Santa Fe</button>
+        </div>
+
+        <div class="info-container" id="info-panel">
+            <p class="placeholder">Haz clic en una provincia del mapa para cargar los datos...</p>
+        </div>
+    </div>
+
+    <script>
+        // Base de datos local simulada en JavaScript
+        const datosProvincias = {
+            buenosAires: {
+                nombre: "Buenos Aires",
+                cultivos: "Trigo, Maíz, Soja, Girasol.",
+                costos: "Alta inversión en fertilizantes, costos logísticos moderados por cercanía a puertos (Rosario/Quequén).",
+                procesos: "Siembra directa, monitoreo satelital, cosecha mecanizada de alta tecnología."
+            },
+            cordoba: {
+                nombre: "Córdoba",
+                cultivos: "Maíz (líder), Soja, Maní (principal productor).",
+                costos: "Costos de flete más elevados hacia los puertos principales. Mayor gasto en control de malezas resistentes.",
+                procesos: "Rotación de cultivos estricta, sistemas de riego por pivot en zonas centro/sur."
+            },
+            santaFe: {
+                nombre: "Santa Fe",
+                cultivos: "Soja (núcleo), Maíz, Trigo.",
+                costos: "Costos logísticos optimizados gracias a la hidrovía del Paraná. Valores de arrendamiento elevados.",
+                procesos: "Procesamiento industrial en el polo Up-River (crushing de soja), agricultura de precisión."
+            }
+        };
+
+        // Función que detecta el clic y renderiza la info en pantalla
+        function mostrarInfo(idProvincia) {
+            const provincia = datosProvincias[idProvincia];
+            const panel = document.getElementById('info-panel');
+
+            if (provincia) {
+                panel.innerHTML = `
+                    <h2>${provincia.nombre}</h2>
+                    <hr>
+                    <div class="data-section">
+                        <h3>🌱 Cultivos Principales</h3>
+                        <p>${provincia.cultivos}</p>
+                    </div>
+                    <div class="data-section">
+                        <h3>💰 Costos Estimados</h3>
+                        <p>${provincia.costos}</p>
+                    </div>
+                    <div class="data-section">
+                        <h3>🚜 Procesos Clave</h3>
+                        <p>${provincia.procesos}</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
